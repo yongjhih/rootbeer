@@ -9,6 +9,8 @@ public class RootBeerNative {
      * Loads the C/C++ libraries statically
      */
     static {
+        // TODO: Encode all the plain-text
+        // TODO: Rename lib name
         System.loadLibrary("tool-checker");
     }
 

@@ -18,13 +18,16 @@ public final class QLog {
     /*
      * For filtering app specific output
      */
+    // TODO: Encode all the plain-text
     private static final String TAG = "RootBeer";
     /*
      * So any important logs can be outputted in non filtered output also
      */
+    // TODO: Encode all the plain-text
     private static final String TAG_GENERAL_OUTPUT = "QLog";
 
     static {
+        // TODO: Encode all the plain-text
         i("Log class reloaded");
     }
 

@@ -40,6 +40,7 @@ public class RootBeer {
      */
     public boolean isRooted() {
 
+        // TODO: Encode all the plain-text
         return detectRootManagementApps() || detectPotentiallyDangerousApps() || checkForBinary("su")
                 || checkForBinary("busybox") || checkForDangerousProps() || checkForRWPaths()
                 || detectTestKeys() || checkSuExists() || checkForRootNative();
@@ -52,6 +53,7 @@ public class RootBeer {
      */
     public boolean isRootedWithoutBusyBoxCheck() {
 
+        // TODO: Encode all the plain-text
         return detectRootManagementApps() || detectPotentiallyDangerousApps() || checkForBinary("su")
                 || checkForDangerousProps() || checkForRWPaths()
                 || detectTestKeys() || checkSuExists() || checkForRootNative();
@@ -65,6 +67,7 @@ public class RootBeer {
     public boolean detectTestKeys() {
         String buildTags = android.os.Build.TAGS;
 
+        // TODO: Encode all the plain-text
         return buildTags != null && buildTags.contains("test-keys");
     }
 
@@ -149,6 +152,7 @@ public class RootBeer {
      * @return true if found
      */
     public boolean checkForSuBinary(){
+        // TODO: Encode all the plain-text
         return checkForBinary("su");
     }
 
@@ -157,6 +161,7 @@ public class RootBeer {
      * @return true if found
      */
     public boolean checkForBusyBoxBinary(){
+        // TODO: Encode all the plain-text
         return checkForBinary("busybox");
     }
 
@@ -176,7 +181,6 @@ public class RootBeer {
             File f = new File(completePath);
             boolean fileExists = f.exists();
             if (fileExists) {
-                QLog.v(completePath + " binary detected!");
                 result = true;
             }
         }
@@ -196,16 +200,17 @@ public class RootBeer {
     private String[] propsReader() {
         InputStream inputstream = null;
         try {
+            // TODO: Encode all the plain-text
             inputstream = Runtime.getRuntime().exec("getprop").getInputStream();
         } catch (IOException e) {
             e.printStackTrace();
         }
         String propval = "";
         try {
+            // TODO: Encode all the plain-text
             propval = new Scanner(inputstream).useDelimiter("\\A").next();
 
         } catch (NoSuchElementException e) {
-            QLog.e("Error getprop, NoSuchElementException: " +e.getMessage(), e);
         }
 
         return propval.split("\n");
@@ -214,6 +219,7 @@ public class RootBeer {
     private String[] mountReader() {
         InputStream inputstream = null;
         try {
+            // TODO: Encode all the plain-text
             inputstream = Runtime.getRuntime().exec("mount").getInputStream();
         } catch (IOException e) {
             e.printStackTrace();
@@ -224,6 +230,7 @@ public class RootBeer {
 
         String propval = "";
         try {
+            // TODO: Encode all the plain-text
             propval = new Scanner(inputstream).useDelimiter("\\A").next();
         } catch (NoSuchElementException e) {
             e.printStackTrace();
@@ -246,7 +253,6 @@ public class RootBeer {
             try {
                 // Root app detected
                 pm.getPackageInfo(packageName, 0);
-                QLog.e(packageName + " ROOT management app detected!");
                 result = true;
             } catch (PackageManager.NameNotFoundException e) {
                 // Exception thrown, package is not installed into the system
@@ -263,7 +269,9 @@ public class RootBeer {
     public boolean checkForDangerousProps() {
 
         final Map<String, String> dangerousProps = new HashMap<>();
+            // TODO: Encode all the plain-text
             dangerousProps.put("ro.debuggable", "1");
+            // TODO: Encode all the plain-text
             dangerousProps.put("ro.secure", "0");
 
         boolean result = false;
@@ -275,7 +283,6 @@ public class RootBeer {
                     String badValue = dangerousProps.get(key);
                     badValue = "[" + badValue + "]";
                     if (line.contains(badValue)) {
-                        QLog.v(key + " = " + badValue + " detected!");
                         result = true;
                     }
                 }
@@ -300,7 +307,6 @@ public class RootBeer {
 
             if (args.length < 4){
                 // If we don't have enough options per line, skip this and log an error
-                QLog.e("Error formatting mount line: "+line);
                 continue;
             }
 
@@ -313,8 +319,8 @@ public class RootBeer {
                     // Split options out and compare against "rw" to avoid false positives
                     for (String option : mountOptions.split(",")){
 
+                      // TODO: Encode all the plain-text
                       if (option.equalsIgnoreCase("rw")){
-                        QLog.v(pathToCheck+" path is mounted with rw permissions! "+line);
                         result = true;
                         break;
                       }
@@ -334,6 +340,7 @@ public class RootBeer {
     public boolean checkSuExists() {
         Process process = null;
         try {
+            // TODO: Encode all the plain-text
             process = Runtime.getRuntime().exec(new String[] { "which", "su" });
             BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
             return in.readLine() != null;
@@ -350,6 +357,7 @@ public class RootBeer {
      */
     public boolean checkForRootNative() {
 
+        // TODO: Encode all the plain-text
         String binaryName = "su";
         String[] paths = new String[Const.suPaths.length];
         for (int i = 0; i < paths.length; i++) {

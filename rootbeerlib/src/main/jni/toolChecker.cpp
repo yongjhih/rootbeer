@@ -29,6 +29,7 @@
  ****************************************************************************/
 
 // LOGCAT
+// TODO: Encode plain-text
 #define  LOG_TAG    "RootBeer"
 #define  LOGD(...)  if (DEBUG) __android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__);
 #define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,LOG_TAG,__VA_ARGS__);
@@ -43,6 +44,7 @@ static int DEBUG = 1;
  *      thiz - javaobject
  * 	bool - true to log debug messages
  *
+ * TODO: Encode this symbol
  *****************************************************************************/
 void Java_com_scottyab_rootbeer_RootBeerNative_setLogDebugMessages( JNIEnv* env, jobject thiz, jboolean debug)
 {
@@ -68,10 +70,12 @@ int exists(const char *fname)
     FILE *file;
     if ((file = fopen(fname, "r")))
     {
+        // TODO: Encode plain-text
         LOGD("LOOKING FOR BINARY: %s PRESENT!!!",fname);
         fclose(file);
         return 1;
     }
+    // TODO: Encode plain-text
     LOGD("LOOKING FOR BINARY: %s Absent :(",fname);
     return 0;
 }
@@ -87,6 +91,7 @@ int exists(const char *fname)
  *
  * Return value: int number of su binaries found
  *
+ * TODO: Encode this symbol
  *****************************************************************************/
 int Java_com_scottyab_rootbeer_RootBeerNative_checkForRoot( JNIEnv* env, jobject thiz, jobjectArray pathsArray )
 {
