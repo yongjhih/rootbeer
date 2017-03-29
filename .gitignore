@@ -37,3 +37,5 @@ rootbeerlib/rootbeerlib.iml
 obj
 .externalNativeBuild/**
 app/.externalNativeBuild/**
+
+.externalNativeBuild/
